@@ -48,13 +48,13 @@ class Simulation(object):
         self.initial_infected = initial_infected # Int
         self.total_infected = 0 # Int
         self.current_infected = 0 # Int
+        self.current_infected_list = []
         self.vacc_percentage = vacc_percentage # float between 0 and 1
         self.total_dead = 0 # Int
         self.file_name = "{}_simulation_pop_{}_vp_{}_infected_{}.txt".format(
             virus_name, pop_size, vacc_percentage, initial_infected)
         self.logger = Logger(self.file_name)
         self.newly_infected = []
-
 
     def _create_population(self, initial_infected):
         '''This method will create the initial population.
@@ -69,6 +69,7 @@ class Simulation(object):
         temp_list_of_people = []
         number_of_vaccinated = int(self.pop_size * self.vacc_percentage)
         num_left_over_people = self.pop_size - number_of_vaccinated - self.initial_infected
+        self.current_infected = initial_infected
 
 
 
@@ -79,7 +80,8 @@ class Simulation(object):
             temp_list_of_people.append(person)
         for _ in self.initial_infected:
             person = Person(self.next_person_id, False, virus)
-            self.newly_infected.append(person)
+            person.is_infected = True
+            self.current_infected_list.append(person)
             temp_list_of_people.append(person)
             self.next_person_id += 1
         for _ in num_left_over_people:
@@ -109,24 +111,13 @@ class Simulation(object):
         represent each persons vaccination status and then use the all() function to see if they are all vaccinated. And then I am going to 
         do the same thing for each persons is alive attribute
         '''
-        is_vaccinated_list = []
-        is_dead_list = []
-        all_vaccinated = False
-        all_dead = False
+       
 
-
-
-        for i in range(len(self.population)):
-            is_vaccinated_list.append(self.population[i].is_vaccinated)
-        for i in range(len(self.poplulation)):
-            is_dead_list.append(self.population[i].is_alive)
-
-        if all(is_vaccinated_list):
+        if self.current_infected == 0:
             return False
-        if any(is_dead_list):
-            return True
         else:
-            return False
+            return True
+        
         
 
 
@@ -166,6 +157,16 @@ class Simulation(object):
         '''
         interaction_counter = 0
 
+        while interaction_counter <= 100:
+            for person in self.current_infected_list:
+                random_index = random.randint(0, self.pop_size)
+                self.interaction(person, self.population[random_index])
+                interaction_counter += 1
+
+
+
+        
+
 
         # TODO: Finish this method.
         pass
@@ -178,10 +179,18 @@ class Simulation(object):
             person1 (person): The initial infected person
             random_person (person): The person that person1 interacts with.
         '''
+
+        
+
+
         # Assert statements are included to make sure that only living people are passed
         # in as params
+
+        
         assert person.is_alive == True
         assert random_person.is_alive == True
+        
+
 
         # TODO: Finish this method.
         #  The possible cases you'll need to cover are listed below:
@@ -194,8 +203,16 @@ class Simulation(object):
             #     than repro_rate, random_person's ID should be appended to
             #     Simulation object's newly_infected array, so that their .infected
             #     attribute can be changed to True at the end of the time step.
-        # TODO: Call slogger method during this method.
-        pass
+        # TODO: Call logger method during this method.
+
+        if random_person.is_vaccinated:
+            return False
+        if random_person.is_infected:
+            return False
+
+
+
+
 
     def _infect_newly_infected(self):
         ''' This method should iterate through the list of ._id stored in self.newly_infected
@@ -203,9 +220,14 @@ class Simulation(object):
         # TODO: Call this method at the end of every time step and infect each Person.
         # TODO: Once you have iterated through the entire list of self.newly_infected, remember
         # to reset self.newly_infected back to an empty list.
+        for person in self.newly_infected:
+            if person.did_survive_infection():
+                person.is_vaccinated = True
+            else:
+                person.is_alive = False
+        self.newly_infected = []
 
 
-        pass
 
 
 if __name__ == "__main__":
