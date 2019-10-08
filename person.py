@@ -16,6 +16,7 @@ class Person(object):
         self._id = _id  # int
         self.is_alive = True  # boolean
         self.is_vaccinated = is_vaccinated  # boolean
+        self.is_infected = False
         self.infection = infection  # Virus object or None
 
     def did_survive_infection(self):
@@ -28,6 +29,7 @@ class Person(object):
             random_chance = random.uniform(0, 1)
             if random_chance < self.infection.mortality_rate:
                 self.is_alive = False
+                self.is_infected = False
                 return False
             else:
                 self.is_vaccinated = True

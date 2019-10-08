@@ -160,8 +160,9 @@ class Simulation(object):
         while interaction_counter <= 100:
             for person in self.current_infected_list:
                 random_index = random.randint(0, self.pop_size)
-                self.interaction(person, self.population[random_index])
-                interaction_counter += 1
+                if self.interaction(person, self.population[random_index]):
+                    interaction_counter += 1
+                
 
 
 
@@ -204,12 +205,18 @@ class Simulation(object):
             #     Simulation object's newly_infected array, so that their .infected
             #     attribute can be changed to True at the end of the time step.
         # TODO: Call logger method during this method.
+        
+        did_infect = False
 
-        if random_person.is_vaccinated:
-            return False
-        if random_person.is_infected:
-            return False
-
+        if random_person.is_infected == False and random_person.is_vaccinated == False:
+            random_chance = random.uniform(0, 1)
+            if random_chance < self.virus.repro_rate:
+                random_person.is_infected = True
+                self.newly_infected.append(random_person)
+                did_infect = True
+            else:
+                did_infect = False
+        self.logger.log_interaction(person, random_person, random_person.is_infected, random_person.is_vaccinated, did_infect)
 
 
 
