@@ -47,12 +47,23 @@ class Logger(object):
         '''
         f = open(file_name, "a")
 
+        if did_infect:
+            f.write("{person._id} infects {random_person._id}\n".format(person._id, random_person._id))
+        #write that the random person was infected
+        elif random_person_vacc:
+            f.write("{person._id} did not infect {random_person._id} because they are vaccinated\n".format(person._id, random_person._id))
+        #write that the random person was not infected because they are vaccinated
+        elif random_person_sick:
+            f.write("{person._id} did not infect {random_person_.id} because they are already sick\n").format(person._id, random_person._id)
+        #write that the random person was not infected because they are already infected
+        else:
+            f.write("{person._id} did not infect {random_person._id} just by chance\n".format(person._id, random_person._id))
+
 
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
         # exactly what happened in the interaction and create a String, and write to your logfile.
-        pass
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every
@@ -61,10 +72,14 @@ class Logger(object):
         The format of the log should be:
             "{person.ID} died from infection\n" or "{person.ID} survived infection.\n"
         '''
+
+
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
-        # Append the results of the infection to the logfile
-        pass
+        # Append the results of the infection to the logfile'
+
+
+
 
     def log_time_step(self, time_step_number):
         ''' STRETCH CHALLENGE DETAILS:
@@ -84,4 +99,3 @@ class Logger(object):
         # TODO: Finish this method. This method should log when a time step ends, and a
         # new one begins.
         # NOTE: Here is an opportunity for a stretch challenge!
-        pass
