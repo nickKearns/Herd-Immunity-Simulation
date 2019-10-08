@@ -23,7 +23,7 @@ class Logger(object):
         # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
 
 
-        f = open(file_name, "w")
+        f = open(self.file_name, "w")
         f.write(str(pop_size) + "\n")
         f.write(str(vacc_percentage) + "\n")
         f.write(virus_name + "\n")
@@ -45,7 +45,7 @@ class Logger(object):
         or the other edge cases:
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated' or 'already sick'} \n"
         '''
-        f = open(file_name, "a")
+        f = open(self.file_name, "a")
 
         if did_infect:
             f.write("{person._id} infects {random_person._id}\n".format(person._id, random_person._id))
@@ -72,7 +72,7 @@ class Logger(object):
         The format of the log should be:
             "{person.ID} died from infection\n" or "{person.ID} survived infection.\n"
         '''
-        f = open(file_name, "a")
+        f = open(self.file_name, "a")
 
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
@@ -82,7 +82,7 @@ class Logger(object):
         else:
             f.write("{person._id} survived the infection\n".format(person._id))
         f.close()
-        
+
 
 
 
