@@ -123,10 +123,10 @@ class Simulation(object):
 
         if all(is_vaccinated_list):
             return False
-        elif all(is_dead_list):
-            return False
-        else:
+        if any(is_dead_list):
             return True
+        else:
+            return False
         
 
 
@@ -163,7 +163,10 @@ class Simulation(object):
                 Since we don't interact with dead people, this does not count as an interaction.
             3. Otherwise call simulation.interaction(person, random_person) and
                 increment interaction counter by 1.
-            '''
+        '''
+        interaction_counter = 0
+
+
         # TODO: Finish this method.
         pass
 
