@@ -59,7 +59,7 @@ class Logger(object):
         else:
             f.write("{person._id} did not infect {random_person._id} just by chance\n".format(person._id, random_person._id))
 
-
+        f.close()
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
@@ -67,16 +67,23 @@ class Logger(object):
 
     def log_infection_survival(self, person, did_die_from_infection):
         ''' The Simulation object uses this method to log the results of every
-        call of a Person object's .resolve_infection() method.
+        call of a Person object's .did_survive_infection() method.
 
         The format of the log should be:
             "{person.ID} died from infection\n" or "{person.ID} survived infection.\n"
         '''
-
+        f = open(file_name, "a")
 
         # TODO: Finish this method. If the person survives, did_die_from_infection
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile'
+        if did_die_from_infection:
+            f.write("{person._id} died from infection\n".format(person._id))
+        else:
+            f.write("{person._id} survived the infection\n".format(person._id))
+        f.close()
+        
+
 
 
 
