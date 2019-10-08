@@ -21,17 +21,18 @@ class Logger(object):
         # it should create the text file that we will store all logs in.
         # TIP: Use 'w' mode when you open the file. For all other methods, use
         # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
+
+
         f = open(file_name, "w")
         f.write(str(pop_size) + "\n")
         f.write(str(vacc_percentage) + "\n")
         f.write(virus_name + "\n")
         f.write(str(mortality_rate) + "\n")
         f.write(str(basic_repro_num) + "\n")
-        
+        f.close()
 
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
+        # NOTE: Make sure to end ever  y line with a '/n' character to ensure that each
         # event logged ends up on a separate line!
-        pass
 
     def log_interaction(self, person, random_person, random_person_sick=None,
                         random_person_vacc=None, did_infect=None):
@@ -44,6 +45,9 @@ class Logger(object):
         or the other edge cases:
             "{person.ID} didn't infect {random_person.ID} because {'vaccinated' or 'already sick'} \n"
         '''
+        f = open(file_name, "a")
+
+
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
         # represent all the possible edge cases. Use the values passed along with each person,
         # along with whether they are sick or vaccinated when they interact to determine
