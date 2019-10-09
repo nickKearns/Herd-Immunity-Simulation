@@ -1,5 +1,5 @@
 import random
-random.seed(42)
+#random.seed(42)
 from virus import Virus
 
 

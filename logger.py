@@ -47,17 +47,19 @@ class Logger(object):
         '''
         f = open(self.file_name, "a")
 
+        f.write('interaction: ')
+
         if did_infect:
-            f.write("{person._id} infects {random_person._id}\n".format(person._id, random_person._id))
+            f.write(f"{person._id} infects {random_person._id}\n")
         #write that the random person was infected
         elif random_person_vacc:
-            f.write("{person._id} did not infect {random_person._id} because they are vaccinated\n".format(person._id, random_person._id))
+            f.write(f"{person._id} did not infect {random_person._id} because they are vaccinated\n")
         #write that the random person was not infected because they are vaccinated
         elif random_person_sick:
-            f.write("{person._id} did not infect {random_person_.id} because they are already sick\n").format(person._id, random_person._id)
+            f.write(f"{person._id} did not infect {random_person._id} because they are already sick\n")
         #write that the random person was not infected because they are already infected
         else:
-            f.write("{person._id} did not infect {random_person._id} just by chance\n".format(person._id, random_person._id))
+            f.write(f"{person._id} did not infect {random_person._id} just by chance\n")
 
         f.close()
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
@@ -78,9 +80,9 @@ class Logger(object):
         # should be False.  Otherwise, did_die_from_infection should be True.
         # Append the results of the infection to the logfile'
         if did_die_from_infection:
-            f.write("{person._id} died from infection\n".format(person._id))
+            f.write(f"{person._id} died from infection\n")
         else:
-            f.write("{person._id} survived the infection\n".format(person._id))
+            f.write(f"{person._id} survived the infection\n")
         f.close()
 
 
