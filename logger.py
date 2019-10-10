@@ -90,7 +90,7 @@ class Logger(object):
 
 
 
-    def log_time_step(self, time_step_number):
+    def log_time_step(self, time_step_number, num_infected, num_dead, total_infected, total_dead):
         ''' STRETCH CHALLENGE DETAILS:
 
         If you choose to extend this method, the format of the summary statistics logged
@@ -105,6 +105,22 @@ class Logger(object):
         The format of this log should be:
             "Time step {time_step_number} ended, beginning {time_step_number + 1}\n"
         '''
+        f = open(self.file_name, "a")
+        f.write(f"Time step {time_step_number} ended, beginning {time_step_number + 1}\n")
+        f.write(f"Number of people infected during this time step: {num_infected}\n")
+        f.write(f"Number of people that died on this time step: {num_dead}\n")
+        f.write(f"Total number of people infected in the population: {total_infected}\n")
+        f.write(f"Total number of people dead in the population: {total_dead}\n")
+        f.close()
+
+
+
+
         # TODO: Finish this method. This method should log when a time step ends, and a
         # new one begins.
         # NOTE: Here is an opportunity for a stretch challenge!
+        
+
+
+
+
