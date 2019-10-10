@@ -59,6 +59,7 @@ class Simulation(object):
         self.logger = Logger(self.file_name)
         self.newly_infected = []
         self.population = self._create_population(initial_infected) # List of Person objects
+        self.logger.write_metadata(self.pop_size, self.vacc_percentage, self.virus.name, self.virus.mortality_rate, self.virus.repro_rate)
 
     def _create_population(self, initial_infected):
         '''This method will create the initial population.
