@@ -10,3 +10,6 @@ Out of all interactions sick individuals had during the entire simulation, how m
 2.) At the peak of the infection 35.5% of the population was infected.
 3.) 26.7% of the population died from the virus
 4.)I do not have an exact number but there was definitely tens of thousands of interactions where a vaccination saved a person from becoming infected.
+
+
+
